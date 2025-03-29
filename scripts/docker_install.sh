@@ -1,7 +1,7 @@
 # 古いバージョンがあれば削除
 for pkg in docker.io docker-doc docker-compose \
 docker-compose-v2 podman-docker containerd runc; \
-do sudo apt-get remove $pkg; done
+do sudo apt-get remove -y $pkg; done
 
 # 依存パッケージインストール
 sudo apt update
