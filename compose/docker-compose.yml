@@ -4,8 +4,8 @@ services:
     image: grafana/grafana
     container_name: grafana
     network_mode: host
-    # ports:
-    #   - "3000:3000"
+    ports:
+      - 3000:3000
     volumes:
       - /opt/grafana:/var/lib/grafana
       - /opt/grafana-provisioning:/etc/grafana/provisioning
@@ -16,8 +16,8 @@ services:
     image: prom/prometheus
     container_name: prometheus
     network_mode: host
-    # ports:
-    #   - "9090:9090"
+    ports:
+      - 9090:9090
     volumes:
       - /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       # - /opt/docker/monitoring/prometheus/etc:/etc/prometheus # prometheusの設定ファイル置き場
