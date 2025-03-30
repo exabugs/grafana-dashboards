@@ -9,9 +9,6 @@ if [ ! -b "$DEVICE" ]; then
     exit 1
 fi
 
-# 自動リサイズ対応
-growpart /dev/sdb 1 2>/dev/null || true
-
 if ! blkid "$DEVICE"; then
     echo "No filesystem found on $DEVICE, formatting as ext4"
     mkfs.ext4 -F "$DEVICE"
