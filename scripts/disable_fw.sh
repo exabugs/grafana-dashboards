@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 iptables -F
 iptables -X
 iptables -P INPUT ACCEPT

@@ -1,6 +1,5 @@
 #!/bin/bash
-
-set -e  # エラーがあれば即終了
+set -e
 
 # 古いパッケージを削除
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do
