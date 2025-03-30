@@ -4,8 +4,8 @@ docker-compose-v2 podman-docker containerd runc; \
 do sudo apt-get remove -y $pkg; done
 
 # 依存パッケージインストール
-sudo apt update
-sudo apt install ca-certificates curl
+sudo apt-get update
+sudo apt-get install ca-certificates curl
 
 # Dockerリポジトリの公開鍵をUbuntu推奨ディレクトリへ格納
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -20,6 +20,6 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Docker Engineのインストール
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli \
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli \
   containerd.io docker-buildx-plugin docker-compose-plugin
