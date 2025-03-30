@@ -1,7 +1,10 @@
 [Unit]
 Description=Docker Compose Grafana & Prometheus
-After=network.target docker.service
+After=docker.service
 Requires=docker.service
+
+After=block_device.service
+Requires=block_device.service
 
 [Service]
 Type=oneshot
