@@ -11,8 +11,6 @@ services:
       # /etc/grafana/grafana.ini
       - /mnt/data/grafana:/var/lib/grafana
       - /opt/grafana/provisioning:/etc/grafana/provisioning
-      # letsencrypt
-      - /mnt/data/letsencrypt:/etc/letsencrypt
     restart: always
 
   prometheus:
