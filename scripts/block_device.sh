@@ -27,3 +27,7 @@ if [ -z "$(ls -A $MOUNTPOINT)" ]; then
 else
     echo "$MOUNTPOINT is not empty. Skipping chown."
 fi
+
+mkdir -p $MOUNTPOINT/{grafana,prometheus}
+chown -R 472:472 $MOUNTPOINT/grafana
+chown -R nobody:nogroup $MOUNTPOINT/prometheus
