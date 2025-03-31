@@ -24,5 +24,6 @@ services:
       - /mnt/data/prometheus:/prometheus
       - /opt/prometheus:/etc/prometheus
     command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.retention.time=90d"
     restart: always
