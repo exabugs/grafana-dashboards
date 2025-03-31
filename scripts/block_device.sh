@@ -28,6 +28,7 @@ else
     echo "$MOUNTPOINT is not empty. Skipping chown."
 fi
 
-mkdir -p $MOUNTPOINT/{grafana,prometheus}
+mkdir -p $MOUNTPOINT/{letsencrypt,grafana,prometheus}
+chown -R www-data:www-data $MOUNTPOINT/letsencrypt
 chown -R 472:472 $MOUNTPOINT/grafana
 chown -R nobody:nogroup $MOUNTPOINT/prometheus
