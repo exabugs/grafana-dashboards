@@ -29,6 +29,5 @@ else
 fi
 
 mkdir -p $MOUNTPOINT/{letsencrypt,grafana,prometheus}
-chown -R www-data:www-data $MOUNTPOINT/letsencrypt
-chown -R 472:472 $MOUNTPOINT/grafana
-chown -R nobody:nogroup $MOUNTPOINT/prometheus
+chown 472:472 $MOUNTPOINT/grafana
+chown nobody:nogroup $MOUNTPOINT/prometheus
