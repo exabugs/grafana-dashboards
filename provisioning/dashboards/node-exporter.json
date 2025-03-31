@@ -1,24 +1,21 @@
 {
-  "dashboard": {
-    "id": null,
-    "title": "Sample Node Dashboard",
-    "timezone": "browser",
-    "panels": [
-      {
-        "type": "graph",
-        "title": "CPU Usage",
-        "targets": [
-          {
-            "expr": "rate(node_cpu_seconds_total{mode!=\"idle\"}[1m])",
-            "legendFormat": "{{cpu}}"
-          }
-        ],
-        "datasource": "Prometheus",
-        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 0 }
-      }
-    ],
-    "schemaVersion": 36,
-    "version": 1
-  },
-  "overwrite": true
+  "id": null,
+  "title": "Sample Node Dashboard",
+  "timezone": "browser",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "CPU Usage",
+      "targets": [
+        {
+          "expr": "rate(node_cpu_seconds_total{mode!=\"idle\"}[1m])",
+          "legendFormat": "{{cpu}}"
+        }
+      ],
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 0 }
+    }
+  ],
+  "schemaVersion": 36,
+  "version": 1
 }
