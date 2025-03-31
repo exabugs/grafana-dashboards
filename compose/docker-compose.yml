@@ -7,12 +7,10 @@ services:
     ports:
       - 3000:3000
     volumes:
-      # - /opt/grafana:/var/lib/grafana
-      # - /opt/grafana-provisioning:/etc/grafana/provisioning
-
-      # /etc/grafana/provisioning
+      # /etc/grafana/provisioning/
+      # /etc/grafana/grafana.ini
       - /mnt/data/grafana:/var/lib/grafana
-      - /opt/grafana:/etc/grafana
+      - /opt/grafana/provisioning:/etc/grafana/provisioning
     restart: always
 
   prometheus:
@@ -22,8 +20,6 @@ services:
     ports:
       - 9090:9090
     volumes:
-      # - /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-
       # /etc/prometheus/prometheus.yml
       - /mnt/data/prometheus:/prometheus
       - /opt/prometheus:/etc/prometheus
