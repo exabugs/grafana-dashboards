@@ -4,6 +4,7 @@ Requires=block_device.service
 After=block_device.service
 
 [Service]
+EnvironmentFile=/etc/environment
 Type=oneshot
 RemainAfterExit=yes
 

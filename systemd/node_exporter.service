@@ -4,6 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
+EnvironmentFile=/etc/environment
 User=node_exporter
 Group=node_exporter
 Type=simple
