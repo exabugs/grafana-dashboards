@@ -1,0 +1,13 @@
+[Unit]
+Description=LetsEncrypt
+Requires=block_device.service
+After=block_device.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+ExecStart=/opt/setup/letsencrypt_config.sh
+
+[Install]
+WantedBy=multi-user.target
