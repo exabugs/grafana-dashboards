@@ -1,7 +1,13 @@
 [Unit]
 Description=LetsEncrypt
+
+# ストレージボリュームが必要
 Requires=block_device.service
 After=block_device.service
+
+# Nginx（リバースプロキシ）が必要
+Requires=nginx.service
+After=nginx.service
 
 [Service]
 EnvironmentFile=/etc/environment
