@@ -10,6 +10,9 @@ systemctl restart nginx
 
 
 mkdir -p /mnt/data/letsencrypt
+
+mv /etc/letsencrypt/* /mnt/data/letsencrypt/
+
 rm -rf /etc/letsencrypt
 ln -s /mnt/data/letsencrypt /etc/letsencrypt
 
