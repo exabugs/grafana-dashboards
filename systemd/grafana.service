@@ -1,20 +1,33 @@
 [Unit]
-Description=Docker Compose Grafana & Prometheus
+Description=Grafana & Prometheus via Docker Compose
 
+# Docker が必要
 Requires=docker.service
 After=docker.service
 
+# ストレージボリュームが必要
 Requires=block_device.service
 After=block_device.service
 
+# Nginx（リバースプロキシ）が必要
+Requires=nginx.service
+After=nginx.service
+
+# 証明書が取得済みである必要がある
+Requires=letsencrypt_config.service
+After=letsencrypt_config.service
+
 [Service]
-EnvironmentFile=/etc/environment
 Type=oneshot
 RemainAfterExit=yes
+EnvironmentFile=/etc/environment
 
-WorkingDirectory=/opt/compose
-ExecStart=/usr/bin/docker compose up -d
-ExecStop=/usr/bin/docker compose down
+ExecStart=/opt/setup/grafana.sh start
+ExecStop=/opt/setup/grafana.sh stop
+ExecReload=/opt/setup/grafana.sh restart
+
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
