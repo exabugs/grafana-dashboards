@@ -7,8 +7,6 @@ services:
     ports:
       - 3000:3000
     volumes:
-      # /etc/grafana/provisioning/
-      # /etc/grafana/grafana.ini
       - /mnt/data/grafana:/var/lib/grafana
       - /opt/grafana/provisioning:/etc/grafana/provisioning
     restart: always
@@ -20,7 +18,6 @@ services:
     ports:
       - 9090:9090
     volumes:
-      # /etc/prometheus/prometheus.yml
       - /mnt/data/prometheus:/prometheus
       - /opt/prometheus:/etc/prometheus
     command:
