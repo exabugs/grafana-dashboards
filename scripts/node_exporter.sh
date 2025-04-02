@@ -37,7 +37,7 @@ install() {
 
   if ! id -u "$USER" >/dev/null 2>&1; then
     log "Creating user: $USER"
-    useradd --no-create-home --shell /bin/false "$USER" --user-group "$USER"
+    useradd --no-create-home --shell /bin/false "$USER" --user-group
   fi
 
   log "Installation completed"
