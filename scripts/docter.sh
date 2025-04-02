@@ -2,7 +2,7 @@
 set -e
 
 SERVICES=(
-  download-configs
+  download_configs
   block_device
   docker
   nginx
