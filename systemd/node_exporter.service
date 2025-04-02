@@ -8,7 +8,11 @@ EnvironmentFile=/etc/environment
 User=node_exporter
 Group=node_exporter
 Type=simple
-ExecStart=/usr/local/bin/node_exporter
+
+# 起動前にインストール（もし未インストールなら）
+ExecStartPre=/opt/setup/node_exporter_install.sh install
+
+ExecStart=/opt/setup/node_exporter_install.sh start
 
 [Install]
 WantedBy=multi-user.target
