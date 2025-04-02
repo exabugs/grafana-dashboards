@@ -10,9 +10,9 @@ curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prome
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
 
 cd /etc/nginx/sites-available
-curl -fsSL $SERVER_SETUP_SITE/nginx/letsencrypt.conf -o letsencrypt
+curl -fsSL $SERVER_SETUP_SITE/nginx/default.conf -o default
 curl -fsSL $SERVER_SETUP_SITE/nginx/grafana.conf -o grafana
-sed -i "s/DOMAIN_NAME/${DOMAIN_NAME}/g" {letsencrypt,grafana}
+sed -i "s/DOMAIN_NAME/${DOMAIN_NAME}/g" {default,grafana}
 
 cd /opt/grafana/provisioning
 curl -fsSL $SERVER_SETUP_SITE/provisioning/dashboards/default.yml -o dashboards/default.yml
@@ -32,12 +32,6 @@ for service in "${services[@]}"; do
   curl -fsSL $SERVER_SETUP_SITE/systemd/$service.service -o /etc/systemd/system/$service.service
   chmod +x /opt/setup/$service.sh
   systemctl enable $service
-  # systemctl start  $service
 done
-
-
-cd /etc/nginx/sites-enabled
-rm -f default
-ln -sf /etc/nginx/sites-available/letsencrypt
 
 systemctl daemon-reload
