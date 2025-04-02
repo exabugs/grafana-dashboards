@@ -9,16 +9,27 @@ mkdir -p \
 curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prometheus.yml
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
 
-cd /etc/nginx/sites-available
-curl -fsSL $SERVER_SETUP_SITE/nginx/default.conf -o default
-curl -fsSL $SERVER_SETUP_SITE/nginx/grafana.conf -o grafana
-sed -i "s/DOMAIN_NAME/${DOMAIN_NAME}/g" {default,grafana}
+# Nginx sites
+available=(
+  default
+  grafana
+)
+for site in "${available[@]}"; do
+  curl -fsSL $SERVER_SETUP_SITE/nginx/$site.conf -o /etc/nginx/sites-available/$site
+  sed -i "s/DOMAIN_NAME/${DOMAIN_NAME}/g" /etc/nginx/sites-available/$site
+done
 
-cd /opt/grafana/provisioning
-curl -fsSL $SERVER_SETUP_SITE/provisioning/dashboards/default.yml -o dashboards/default.yml
-curl -fsSL $SERVER_SETUP_SITE/provisioning/dashboards/node-exporter.json -o dashboards/node-exporter.json
-curl -fsSL $SERVER_SETUP_SITE/provisioning/datasources/prometheus.yml -o datasources/prometheus.yml
+# Grafana provisioning
+provs=(
+  dashboards/default.yml
+  dashboards/node-exporter.json
+  datasources/prometheus.yml
+)
+for service in "${services[@]}"; do
+  curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o /opt/grafana/provisioning/$service
+done
 
+# Services
 services=(
   download_configs
   block_device
@@ -26,7 +37,6 @@ services=(
   grafana
   node_exporter
 )
-
 for service in "${services[@]}"; do
   curl -fsSL $SERVER_SETUP_SITE/scripts/$service.sh -o /opt/setup/$service.sh
   curl -fsSL $SERVER_SETUP_SITE/systemd/$service.service -o /etc/systemd/system/$service.service
