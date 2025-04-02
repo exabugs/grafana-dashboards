@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+# Doctor
+curl -fsSL $SERVER_SETUP_SITE/scripts/docter.sh -o /root/docter.sh
+chmod +x /root/docter.sh
+
+#
 mkdir -p /opt/{prometheus,compose}
 curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prometheus.yml
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
