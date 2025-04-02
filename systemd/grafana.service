@@ -17,6 +17,9 @@ After=nginx.service
 Requires=letsencrypt_config.service
 After=letsencrypt_config.service
 
+Requires=download_configs.service
+After=download_configs.service
+
 [Service]
 Type=oneshot
 RemainAfterExit=yes

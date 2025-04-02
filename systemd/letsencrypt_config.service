@@ -9,6 +9,9 @@ After=block_device.service
 Requires=nginx.service
 After=nginx.service
 
+Requires=download_configs.service
+After=download_configs.service
+
 [Service]
 Type=oneshot
 RemainAfterExit=yes
