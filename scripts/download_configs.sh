@@ -26,7 +26,9 @@ provs=(
   datasources/prometheus.yml
 )
 for service in "${services[@]}"; do
-  curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o /opt/grafana/provisioning/$service
+  path=/opt/grafana/provisioning/$service
+  mkdir -p $(dirname $path)
+  curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o $path
 done
 
 # Services
