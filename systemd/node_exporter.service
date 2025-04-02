@@ -10,9 +10,9 @@ Group=node_exporter
 Type=simple
 
 # 起動前にインストール（もし未インストールなら）
-ExecStartPre=/opt/setup/node_exporter_install.sh install
+ExecStartPre=/opt/setup/node_exporter.sh install
 
-ExecStart=/opt/setup/node_exporter_install.sh start
+ExecStart=/opt/setup/node_exporter.sh start
 
 [Install]
 WantedBy=multi-user.target

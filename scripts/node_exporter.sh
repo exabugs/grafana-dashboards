@@ -72,7 +72,7 @@ case "$1" in
     restart
     ;;
   *)
-    err "Usage: $0 {start|stop|restart}"
+    err "Usage: $0 {install|start|stop|restart}"
     exit 1
     ;;
 esac
