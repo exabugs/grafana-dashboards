@@ -1,15 +1,12 @@
 #!/bin/bash
 set -e
 
-mkdir -p \
-  /opt/{setup,grafana,prometheus,compose} \
-  /opt/grafana/provisioning/{dashboards,datasources} \
-  /etc/nginx/{sites-available,sites-enabled}
-
+mkdir -p /opt/{prometheus,compose}
 curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prometheus.yml
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
 
 # Nginx sites
+mkdir -p /etc/nginx/{sites-available,sites-enabled}
 available=(
   default
   grafana
@@ -20,18 +17,18 @@ for site in "${available[@]}"; do
 done
 
 # Grafana provisioning
+mkdir -p /opt/grafana/provisioning/{dashboards,datasources}
 provs=(
   dashboards/default.yml
   dashboards/node-exporter.json
   datasources/prometheus.yml
 )
 for service in "${provs[@]}"; do
-  path=/opt/grafana/provisioning/$service
-  mkdir -p $(dirname $path)
-  curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o $path
+  curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o /opt/grafana/provisioning/$service
 done
 
 # Services
+mkdir -p /opt/setup
 services=(
   download_configs
   block_device
