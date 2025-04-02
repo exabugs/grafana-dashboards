@@ -33,9 +33,7 @@ done
 # 自分自身の更新
 script_self="$(readlink -f "$0")"
 rename_self() {
-  if [ -f "$script_self.new" ]; then
-    mv "$script_self.new" "$script_self"
-  fi
+  [ -f "$script_self.new" ] && mv "$script_self.new" "$script_self"
 }
 trap rename_self EXIT
 
