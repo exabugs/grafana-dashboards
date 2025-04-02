@@ -58,7 +58,7 @@ echo "URL"
 
 URLS=(
 "http://${DOMAIN_NAME}"
-"https://${DOMAIN_NAME}"
+"https://${DOMAIN_NAME}/login"
 )
 for URL in "${URLS[@]}"; do
   set +e
