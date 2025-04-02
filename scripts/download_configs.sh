@@ -6,14 +6,15 @@ curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prome
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
 
 # Nginx sites
-mkdir -p /etc/nginx/{sites-available,sites-enabled}
+mkdir -p /etc/nginx/sites-available
 available=(
   default
   grafana
 )
 for site in "${available[@]}"; do
-  curl -fsSL $SERVER_SETUP_SITE/nginx/$site.conf -o /etc/nginx/sites-available/$site
-  sed -i "s/DOMAIN_NAME/${DOMAIN_NAME}/g" /etc/nginx/sites-available/$site
+  path=/etc/nginx/sites-available/$site
+  curl -fsSL $SERVER_SETUP_SITE/nginx/$site.conf -o $path
+  envsubst < "$path" > "${path}.tmp" && mv "${path}.tmp" "$path"
 done
 
 # Grafana provisioning
