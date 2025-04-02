@@ -13,6 +13,8 @@ SERVICES=(
 
 EXIT_CODE=0
 
+echo "Service"
+
 for SERVICE in "${SERVICES[@]}"; do
   set +e
   STATUS=$(systemctl is-active "$SERVICE" 2>/dev/null)
@@ -49,6 +51,26 @@ for SERVICE in "${SERVICES[@]}"; do
       EXIT_CODE=1
       ;;
   esac
+done
+
+
+echo "URL"
+
+URLS=(
+"http://${DOMAIN_NAME}"
+"https://${DOMAIN_NAME}"
+)
+for URL in "${URLS[@]}"; do
+  set +e
+  status_code=$(curl -o /dev/null -s -w "%{http_code}" "$URL")
+  set -e
+
+  if [ "$status_code" -eq 200 ]; then
+    echo "✅ OK: $URL is reachable"
+  else
+    echo "❌ ERROR: $URL returned $status_code"
+    EXIT_CODE=1
+  fi
 done
 
 exit $EXIT_CODE
