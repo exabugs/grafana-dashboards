@@ -29,6 +29,16 @@ for service in "${provs[@]}"; do
 done
 
 # Services
+
+# 自分自身の更新
+script_self="$(readlink -f "$0")"
+rename_self() {
+  if [ -f "$script_self.new" ]; then
+    mv "$script_self.new" "$script_self"
+  fi
+}
+trap rename_self EXIT
+
 mkdir -p /opt/setup
 services=(
   download_configs
@@ -38,8 +48,10 @@ services=(
   node_exporter
 )
 for service in "${services[@]}"; do
-  curl -fsSL $SERVER_SETUP_SITE/scripts/$service.sh -o /opt/setup/$service.sh
-  chmod +x /opt/setup/$service.sh
+  path=/opt/setup/$service.sh
+  [ "$path" = "$script_self" ] && path="$path.new"
+  curl -fsSL $SERVER_SETUP_SITE/scripts/$service.sh -o $path
+  chmod +x $path
 done
 for service in "${services[@]}"; do
   curl -fsSL $SERVER_SETUP_SITE/systemd/$service.service -o /etc/systemd/system/$service.service
