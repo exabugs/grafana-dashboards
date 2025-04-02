@@ -73,4 +73,15 @@ for URL in "${URLS[@]}"; do
   fi
 done
 
+set +e
+nginx -t
+RESULT=$?
+set -e
+if [ "$RESULT" -eq 0 ]; then
+  echo "✅ OK: nginx is valid"
+else
+  echo "❌ ERROR: nginx config not valid"
+  EXIT_CODE=1
+fi
+
 exit $EXIT_CODE
