@@ -25,7 +25,7 @@ provs=(
   dashboards/node-exporter.json
   datasources/prometheus.yml
 )
-for service in "${services[@]}"; do
+for service in "${provs[@]}"; do
   path=/opt/grafana/provisioning/$service
   mkdir -p $(dirname $path)
   curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o $path
