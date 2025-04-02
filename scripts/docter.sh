@@ -19,12 +19,36 @@ for SERVICE in "${SERVICES[@]}"; do
   RESULT=$?
   set -e
 
-  if [ "$RESULT" -eq 0 ] && [ "$STATUS" = "active" ]; then
-    echo "✅ $SERVICE is running."
-  else
-    echo "❌ $SERVICE is NOT running. Status: ${STATUS:-unknown}"
-    EXIT_CODE=1
-  fi
+  case "$STATUS" in
+    active)
+      echo "✅ $SERVICE is running. [active]"
+      ;;
+    inactive)
+      echo "⚠️  $SERVICE is installed but not running. [inactive]"
+      EXIT_CODE=1
+      ;;
+    failed)
+      echo "❌ $SERVICE has failed. Check logs. [failed]"
+      EXIT_CODE=1
+      ;;
+    activating)
+      echo "⏳ $SERVICE is starting up. [activating]"
+      ;;
+    deactivating)
+      echo "⏸️  $SERVICE is stopping. [deactivating]"
+      ;;
+    reloading)
+      echo "🔁 $SERVICE is reloading configuration. [reloading]"
+      ;;
+    "")
+      echo "❓ $SERVICE status unknown or service not found. [unknown]"
+      EXIT_CODE=1
+      ;;
+    *)
+      echo "❗ $SERVICE returned unexpected status: $STATUS"
+      EXIT_CODE=1
+      ;;
+  esac
 done
 
 exit $EXIT_CODE
