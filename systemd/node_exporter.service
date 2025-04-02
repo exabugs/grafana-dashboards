@@ -4,14 +4,10 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-EnvironmentFile=/etc/environment
-User=node_exporter
-Group=node_exporter
 Type=simple
+EnvironmentFile=/etc/environment
 
-# 起動前にインストール（もし未インストールなら）
 ExecStartPre=/opt/setup/node_exporter.sh install
-
 ExecStart=/opt/setup/node_exporter.sh start
 
 [Install]

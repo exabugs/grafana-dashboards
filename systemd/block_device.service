@@ -3,9 +3,9 @@ Description=Attach and resize block device
 After=network.target
 
 [Service]
-EnvironmentFile=/etc/environment
 Type=oneshot
 RemainAfterExit=true
+EnvironmentFile=/etc/environment
 
 ExecStart=/opt/setup/block_device.sh
 

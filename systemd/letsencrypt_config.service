@@ -10,9 +10,9 @@ Requires=nginx.service
 After=nginx.service
 
 [Service]
-EnvironmentFile=/etc/environment
 Type=oneshot
 RemainAfterExit=yes
+EnvironmentFile=/etc/environment
 
 ExecStart=/opt/setup/letsencrypt_config.sh
 

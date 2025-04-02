@@ -3,9 +3,9 @@ Description=Download Grafana/Prometheus configuration files from GitHub
 After=network.target
 
 [Service]
-EnvironmentFile=/etc/environment
 Type=oneshot
 RemainAfterExit=true
+EnvironmentFile=/etc/environment
 
 ExecStart=/opt/setup/download_configs.sh
 

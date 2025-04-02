@@ -37,7 +37,7 @@ install() {
 
   if ! id -u "$USER" >/dev/null 2>&1; then
     log "Creating user: $USER"
-    useradd --no-create-home --shell /bin/false "$USER"
+    useradd --no-create-home --shell /bin/false "$USER" --user-group "$USER"
   fi
 
   log "Installation completed"
@@ -45,7 +45,7 @@ install() {
 
 start() {
   install || exit 1
-  exec /usr/local/bin/node_exporter
+  exec runuser -u "$USER" -- /usr/local/bin/node_exporter
 }
 
 stop() {
