@@ -28,6 +28,3 @@ else
     echo "$MOUNTPOINT is not empty. Skipping chown."
 fi
 
-mkdir -p $MOUNTPOINT/{grafana,prometheus}
-chown 472:472 $MOUNTPOINT/grafana
-chown nobody:nogroup $MOUNTPOINT/prometheus

@@ -1,8 +1,13 @@
 #!/bin/bash
 set -e
 
+# Grafana & Prometheus のデータを保存するマウントポイント
+MOUNTPOINT=/mnt/data
+
 # 作業ディレクトリ（docker-compose.yml がある場所）
 WORKDIR="/opt/compose"
+
+# Nginx の設定ファイルのパス
 NGINX_SITE_NAME="grafana"
 
 # 使用するコマンドの絶対パス（systemd 対策）
@@ -28,6 +33,11 @@ err() {
 }
 
 start() {
+  log "Creating Grafana & Prometheus directories"
+  mkdir -p $MOUNTPOINT/{grafana,prometheus}
+  chown 472:472 $MOUNTPOINT/grafana
+  chown nobody:nogroup $MOUNTPOINT/prometheus
+
   log "Linking Nginx site: $NGINX_SITE_NAME"
   ln -sf "/etc/nginx/sites-available/$NGINX_SITE_NAME" "/etc/nginx/sites-enabled/$NGINX_SITE_NAME"
 
