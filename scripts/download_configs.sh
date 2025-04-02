@@ -1,6 +1,4 @@
 #!/bin/bash
-# This script downloads configuration files for various services and sets up the environment.
-
 set -e
 
 mkdir -p /opt/{prometheus,compose}
