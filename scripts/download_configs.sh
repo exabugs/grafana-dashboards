@@ -39,8 +39,10 @@ services=(
 )
 for service in "${services[@]}"; do
   curl -fsSL $SERVER_SETUP_SITE/scripts/$service.sh -o /opt/setup/$service.sh
-  curl -fsSL $SERVER_SETUP_SITE/systemd/$service.service -o /etc/systemd/system/$service.service
   chmod +x /opt/setup/$service.sh
+done
+for service in "${services[@]}"; do
+  curl -fsSL $SERVER_SETUP_SITE/systemd/$service.service -o /etc/systemd/system/$service.service
   systemctl enable $service
 done
 
