@@ -19,20 +19,22 @@ curl -fsSL $SERVER_SETUP_SITE/provisioning/dashboards/default.yml -o dashboards/
 curl -fsSL $SERVER_SETUP_SITE/provisioning/dashboards/node-exporter.json -o dashboards/node-exporter.json
 curl -fsSL $SERVER_SETUP_SITE/provisioning/datasources/prometheus.yml -o datasources/prometheus.yml
 
-cd /opt/setup
-curl -fsSL $SERVER_SETUP_SITE/scripts/download_configs.sh -o download_configs.sh
-curl -fsSL $SERVER_SETUP_SITE/scripts/block_device.sh -o block_device.sh
-curl -fsSL $SERVER_SETUP_SITE/scripts/letsencrypt_config.sh -o letsencrypt_config.sh
-curl -fsSL $SERVER_SETUP_SITE/scripts/grafana.sh -o grafana.sh
-curl -fsSL $SERVER_SETUP_SITE/scripts/node_exporter.sh -o node_exporter.sh
-chmod +x *
+services=(
+  download_configs
+  block_device
+  letsencrypt_config
+  grafana
+  node_exporter
+)
 
-cd /etc/systemd/system
-curl -fsSL $SERVER_SETUP_SITE/systemd/download_configs.service -o download_configs.service
-curl -fsSL $SERVER_SETUP_SITE/systemd/grafana.service -o grafana.service
-curl -fsSL $SERVER_SETUP_SITE/systemd/node_exporter.service -o node_exporter.service
-curl -fsSL $SERVER_SETUP_SITE/systemd/block_device.service -o block_device.service
-curl -fsSL $SERVER_SETUP_SITE/systemd/letsencrypt_config.service -o letsencrypt_config.service
+for service in "${services[@]}"; do
+  curl -fsSL $SERVER_SETUP_SITE/scripts/$service.sh -o /opt/setup/$service.sh
+  curl -fsSL $SERVER_SETUP_SITE/systemd/$service.service -o /etc/systemd/system/$service.service
+  chmod +x /opt/setup/$service.sh
+  systemctl enable $service
+  # systemctl start  $service
+done
+
 
 cd /etc/nginx/sites-enabled
 rm -f default
