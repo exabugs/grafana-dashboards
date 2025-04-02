@@ -19,7 +19,7 @@ available=(
 for site in "${available[@]}"; do
   path=/etc/nginx/sites-available/$site
   curl -fsSL $SERVER_SETUP_SITE/nginx/$site.conf -o $path
-  envsubst < "$path" > "${path}.tmp" && mv "${path}.tmp" "$path"
+  sed -i "s/\${DOMAIN_NAME}/${DOMAIN_NAME}/g" $path
 done
 
 # Grafana provisioning
