@@ -23,6 +23,7 @@ mkdir -p /etc/nginx/sites-available
 available=(
   default
   grafana
+  mimir
 )
 for site in "${available[@]}"; do
   path=/etc/nginx/sites-available/$site
