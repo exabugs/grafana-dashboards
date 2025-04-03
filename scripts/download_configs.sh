@@ -6,8 +6,8 @@ curl -fsSL $SERVER_SETUP_SITE/scripts/docter.sh -o /root/docter.sh
 chmod +x /root/docter.sh
 
 #
-mkdir -p /opt/{prometheus,compose}
-curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prometheus.yml
+mkdir -p /opt/{mimir,compose}
+curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
 
 # Nginx sites
@@ -27,7 +27,7 @@ mkdir -p /opt/grafana/provisioning/{dashboards,datasources}
 provs=(
   dashboards/default.yml
   dashboards/node-exporter.json
-  datasources/prometheus.yml
+  datasources/mimir.yml
 )
 for service in "${provs[@]}"; do
   curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o /opt/grafana/provisioning/$service
