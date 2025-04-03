@@ -44,8 +44,8 @@ start() {
   log "Reloading Nginx"
   $NGINX -t && $NGINX -s reload
 
-  log "Starting Grafana & Mimir with Docker Compose"
-  $DOCKER compose up -d
+  # log "Starting Grafana & Mimir with Docker Compose"
+  # $DOCKER compose up -d
 }
 
 stop() {
@@ -55,8 +55,8 @@ stop() {
   log "Reloading Nginx"
   $NGINX -t && $NGINX -s reload
 
-  log "Stopping Grafana & Mimir"
-  $DOCKER compose down
+  # log "Stopping Grafana & Mimir"
+  # $DOCKER compose down
 }
 
 
