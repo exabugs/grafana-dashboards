@@ -5,9 +5,12 @@ set -e
 curl -fsSL $SERVER_SETUP_SITE/scripts/docter.sh -o /root/docter.sh
 chmod +x /root/docter.sh
 
-#
-mkdir -p /opt/{mimir,compose}
+# mimir
+mkdir -p /opt/mimir
 curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
+
+# docker compose
+mkdir -p /opt/compose
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
 
 # Nginx sites

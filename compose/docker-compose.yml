@@ -24,4 +24,7 @@ services:
       - "-config.file=/etc/mimir/mimir.yaml"
     restart: always
     environment:
-      - OCI_AUTH=instance_principal
+      - OCI_AUTH
+      - MIMIR_S3_ENDPOINT
+      - MIMIR_S3_BUCKET_NAME
+      - MIMIR_S3_S3FORCEPATHSTYLE
