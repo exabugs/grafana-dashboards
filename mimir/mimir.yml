@@ -16,19 +16,14 @@ distributor:
       store: inmemory
 
 ingester:
-  lifecycler:
-    ring:
-      kvstore:
-        store: inmemory
-      replication_factor: 1
-    final_sleep: 0s
-  wal:
-    enabled: true
-    dir: /tmp/mimir/wal
+  ring:
+    kvstore:
+      store: inmemory
+    replication_factor: 1
 
 limits:
   ingestion_rate: 1000000
   ingestion_burst_size: 2000000
 
 store_gateway:
-  sharding_enabled: false
+  # no sharding_enabled – safe to omit
