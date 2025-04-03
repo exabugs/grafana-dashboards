@@ -1,0 +1,36 @@
+[Unit]
+Description=Grafana & Mimir via Docker Compose
+
+# Docker が必要
+Requires=docker.service
+After=docker.service
+
+# ストレージボリュームが必要
+Requires=block_device.service
+After=block_device.service
+
+# Nginx（リバースプロキシ）が必要
+Requires=nginx.service
+After=nginx.service
+
+# 証明書が取得済みである必要がある
+Requires=letsencrypt_config.service
+After=letsencrypt_config.service
+
+Requires=download_configs.service
+After=download_configs.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/etc/environment
+
+ExecStart=/opt/setup/mimir.sh start
+ExecStop=/opt/setup/mimir.sh stop
+ExecReload=/opt/setup/mimir.sh restart
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
