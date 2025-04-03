@@ -5,6 +5,11 @@ set -e
 curl -fsSL $SERVER_SETUP_SITE/scripts/docter.sh -o /root/docter.sh
 chmod +x /root/docter.sh
 
+
+# prometheus
+mkdir -p /opt/prometheus
+curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prometheus.yml
+
 # mimir
 mkdir -p /opt/mimir
 curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
