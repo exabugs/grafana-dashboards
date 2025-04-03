@@ -21,7 +21,7 @@ services:
       - /opt/mimir:/etc/mimir
     command:
       - "-target=all"
-      - "-config.file=/etc/mimir/mimir.yaml"
+      - "-config.file=/etc/mimir/mimir.yml"
     restart: always
     environment:
       - OCI_AUTH
