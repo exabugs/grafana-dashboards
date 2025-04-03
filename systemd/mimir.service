@@ -17,6 +17,10 @@ After=nginx.service
 Requires=letsencrypt_config.service
 After=letsencrypt_config.service
 
+# grafana ( docker compose ) が起動している必要がある
+Requires=grafana.service
+After=grafana.service
+
 Requires=download_configs.service
 After=download_configs.service
 
