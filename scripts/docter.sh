@@ -84,4 +84,15 @@ else
   EXIT_CODE=1
 fi
 
+set +e
+oci os ns get --auth instance_principal
+RESULT=$?
+set -e
+if [ "$RESULT" -eq 0 ]; then
+  echo "✅ OK: oci cli is redy"
+else
+  echo "❌ ERROR: oci cli is not ready"
+  EXIT_CODE=1
+fi
+
 exit $EXIT_CODE
