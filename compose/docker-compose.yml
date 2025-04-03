@@ -26,5 +26,3 @@ services:
     environment:
       - OCI_AUTH
       - MIMIR_S3_ENDPOINT
-      - MIMIR_S3_BUCKET_NAME
-      - MIMIR_S3_S3FORCEPATHSTYLE
