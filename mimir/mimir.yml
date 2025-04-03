@@ -3,6 +3,10 @@ server:
 
 blocks_storage:
   backend: s3
+  s3:
+    endpoint: ${MIMIR_S3_ENDPOINT}
+    bucket_name: ${MIMIR_S3_BUCKET_NAME}
+    s3forcepathstyle: true
 
   tsdb:
     dir: /tmp/mimir/tsdb
