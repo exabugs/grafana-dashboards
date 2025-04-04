@@ -30,9 +30,11 @@ services:
     image: grafana/mimir:latest
     container_name: mimir
     network_mode: host
+    user: 472:472
     ports:
       - 9009:9009
     volumes:
+      - /mnt/data/mimir:/mnt/data/mimir
       - /opt/mimir:/etc/mimir
     command:
       - "-target=all"

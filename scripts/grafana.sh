@@ -34,8 +34,9 @@ err() {
 
 start() {
   log "Creating Grafana & Prometheus directories"
-  mkdir -p $MOUNTPOINT/{grafana,prometheus}
+  mkdir -p $MOUNTPOINT/{grafana,mimir,prometheus}
   chown 472:472 $MOUNTPOINT/grafana
+  chown 472:472 $MOUNTPOINT/mimir
   chown nobody:nogroup $MOUNTPOINT/prometheus
 
   log "Linking Nginx site: $NGINX_SITE_NAME"
