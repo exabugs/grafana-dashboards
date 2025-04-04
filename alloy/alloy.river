@@ -1,22 +1,21 @@
 server "alloy" {
-  log_level            = "info"
-  http_listen_address  = "0.0.0.0"
-  http_listen_port     = 12345
+  log_level           = "info"
+  http_listen_address = "0.0.0.0"
+  http_listen_port    = 12345
 }
 
-metrics.receiver "host" {
-  type         = "host"
+integrations.host_metrics "default" {
   root         = "/rootfs"
   procfs_path  = "/host/proc"
   sysfs_path   = "/host/sys"
+  export_interval = "1m"
 }
 
-metrics.exporter "mimir" {
-  type     = "prometheus_remote_write"
+exporter.prometheus_remote_write "mimir" {
   endpoint = "http://localhost:9009/api/v1/push"
 }
 
-metrics.pipeline "host_metrics" {
-  receivers = [metrics.receiver.host]
-  exporters = [metrics.exporter.mimir]
+pipeline.metric "send_host_metrics" {
+  receivers = [integrations.host_metrics.default]
+  exporters = [exporter.prometheus_remote_write.mimir]
 }
