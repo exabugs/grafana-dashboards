@@ -95,4 +95,29 @@ else
   EXIT_CODE=1
 fi
 
+echo "S3 Buckets"
+. /opt/compose/.env
+BUCKETS=(
+"mimir-blocks"
+"mimir-ruler"
+"mimir-alerts"
+)
+for BUCKET in "${BUCKETS[@]}"; do
+  set +e
+  s3cmd ls s3://$BUCKET \
+    --access_key=$S3_ACCESS_KEY_ID \
+    --secret_key="$S3_SECRET_ACCESS_KEY" \
+    --host=$S3_ENDPOINT \
+    --host-bucket=''
+  RESULT=$?
+  set -e
+
+  if [ "$RESULT" -eq 0 ]; then
+    echo "✅ OK: Bucket $BUCKET is ready"
+  else
+    echo "❌ ERROR: Bucket $BUCKET is not ready"
+    EXIT_CODE=1
+  fi
+done
+
 exit $EXIT_CODE
