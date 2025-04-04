@@ -57,7 +57,7 @@ services:
       - /:/rootfs:ro
     command:
       - run
-      - --config.file=/etc/alloy/alloy.river
       - --storage.path=/var/lib/alloy
       - --enable-features=integrations-next
+      - /etc/alloy/alloy.river
     restart: always
