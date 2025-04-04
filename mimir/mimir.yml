@@ -22,8 +22,7 @@ blocks_storage:
 
   bucket_store:
     sync_dir: /tmp/mimir/tsdb-sync
-  filesystem:
-    dir: /tmp/mimir/data/tsdb
+
   tsdb:
     dir: /tmp/mimir/tsdb
 
@@ -47,9 +46,6 @@ ingester:
     replication_factor: 1
 
 ruler_storage:
-  # backend: filesystem
-  # filesystem:
-  #   dir: /tmp/mimir/rules
   s3:
     bucket_name: mimir-ruler-exabugs
 
@@ -60,3 +56,7 @@ server:
 store_gateway:
   sharding_ring:
     replication_factor: 1
+
+limits:
+  # Enable TSDB block upload
+  compactor_block_upload_enabled: true
