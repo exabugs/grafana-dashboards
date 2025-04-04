@@ -1,0 +1,22 @@
+server:
+  log_level: info
+  http_listen_address: "0.0.0.0"
+  http_listen_port: 12345
+
+metrics:
+  receivers:
+    host:
+      type: "host"
+      root: "/rootfs"
+      procfs_path: "/host/proc"
+      sysfs_path: "/host/sys"
+
+  exporters:
+    mimir:
+      type: "prometheus_remote_write"
+      endpoint: "http://localhost:9009/api/v1/push"
+
+  pipelines:
+    host_metrics:
+      receivers: ["host"]
+      exporters: ["mimir"]
