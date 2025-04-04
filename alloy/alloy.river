@@ -1,6 +1,7 @@
 server "alloy" {
-  http_listen_address = "0.0.0.0"
-  http_listen_port    = 12345
+  log_level            = "info"
+  http_listen_address  = "0.0.0.0"
+  http_listen_port     = 12345
 }
 
 metrics.receiver "host" {
