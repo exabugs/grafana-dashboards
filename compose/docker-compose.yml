@@ -30,7 +30,7 @@ services:
     image: grafana/mimir:latest
     container_name: mimir
     network_mode: host
-    user: 472:472
+    # user: 472:472 # 非 root を試みる ( grafana に揃える ) がうまくいかないので、root のまま
     ports:
       - 9009:9009
     volumes:
