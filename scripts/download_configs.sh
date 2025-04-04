@@ -14,6 +14,10 @@ curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prome
 mkdir -p /opt/mimir
 curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
 
+# alloy
+mkdir -p /opt/alloy
+curl -fsSL $SERVER_SETUP_SITE/alloy/alloy.yml -o /opt/alloy/alloy.yml
+
 # docker compose
 mkdir -p /opt/compose
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
