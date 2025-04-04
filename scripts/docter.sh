@@ -105,9 +105,9 @@ BUCKETS=(
 for BUCKET in "${BUCKETS[@]}"; do
   set +e
   s3cmd ls s3://$BUCKET \
-    --access_key=$S3_ACCESS_KEY_ID \
-    --secret_key="$S3_SECRET_ACCESS_KEY" \
     --host=$S3_ENDPOINT \
+    --access_key=$S3_ACCESS_KEY \
+    --secret_key=$S3_SECRET_KEY \
     --host-bucket=''
   RESULT=$?
   set -e

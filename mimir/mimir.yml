@@ -13,8 +13,8 @@ common:
     backend: s3
     s3:
       endpoint: ${S3_ENDPOINT}
-      secret_access_key: ${S3_SECRET_ACCESS_KEY}
-      access_key_id: ${S3_ACCESS_KEY_ID}
+      access_key_id: ${S3_ACCESS_KEY}
+      secret_access_key: ${S3_SECRET_KEY}
 
 blocks_storage:
   s3:
