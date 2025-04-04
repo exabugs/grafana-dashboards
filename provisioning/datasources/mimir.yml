@@ -4,12 +4,12 @@ datasources:
     type: prometheus
     access: proxy
     url: http://localhost:9090
-    isDefault: true
 
   - name: Mimir
     type: prometheus
     access: proxy
     url: http://localhost:9009/prometheus
+    isDefault: true
     jsonData:
       httpMethod: POST
       manageAlerts: true
