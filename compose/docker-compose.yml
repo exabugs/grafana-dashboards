@@ -36,8 +36,9 @@ services:
       - /opt/mimir:/etc/mimir
     command:
       - "-target=all"
+      - "-config.expand-env=true"
       - "-config.file=/etc/mimir/mimir.yml"
     restart: always
     environment:
-      - OCI_AUTH
-      - MIMIR_S3_ENDPOINT
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_ACCESS_KEY_ID
