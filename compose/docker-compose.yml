@@ -58,6 +58,5 @@ services:
     command:
       - run
       - --storage.path=/var/lib/alloy
-      - --enable-features=integrations-next
       - /etc/alloy/alloy.river
     restart: always
