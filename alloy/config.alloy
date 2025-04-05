@@ -1,79 +1,31 @@
-// ✅ Alloy 自体のメトリクス（=自己監視）	prometheus.exporter.self + prometheus.scrape
-// ✅ Mimir にメトリクス送信	prometheus.remote_write
-// ✅ Node Exporter 相当のシステムメトリクス収集	integration.node_exporter
-// ✅ Grafana ダッシュボード（ID: 1860）との互換性	そのまま使える
-
 logging {
-  level  = "info"
-  format = "logfmt"
+  level = "info"
 }
 
-prometheus.exporter.self "default" {
+prometheus.exporter.unix "default" {
+  include_exporter_metrics = true
+  disable_collectors       = ["mdadm"]
 }
 
-prometheus.scrape "metamonitoring" {
-  targets    = prometheus.exporter.self.default.targets
+prometheus.scrape "default" {
+  targets = array.concat(
+    prometheus.exporter.unix.default.targets,
+    [{
+      // Self-collect metrics
+      job         = "alloy",
+      __address__ = "127.0.0.1:12345",
+    }],
+  )
+
+  // forward_to = [
+  // TODO: components to forward metrics to (like prometheus.remote_write or
+  // prometheus.relabel).
+  // ]
   forward_to = [prometheus.remote_write.default.receiver]
 }
 
 prometheus.remote_write "default" {
   endpoint {
     url = "http://localhost:9009/api/v1/push"
-  }
-}
-
-// docker でホスト情報を収集するための設定
-// docker compose 側に以下の設定を追加すること
-// network_mode: host
-// pid: host
-// privileged: true
-// volumes:
-//   - /:/rootfs:ro
-//   - /proc:/host/proc:ro
-//   - /sys:/host/sys:ro
-discovery.relabel "integrations_node_exporter" {
-  targets = prometheus.exporter.unix.integrations_node_exporter.targets
-
-  rule {
-    target_label = "instance"
-    replacement  = constants.hostname
-  }
-
-  rule {
-    target_label = "job"
-    replacement = "integrations/node_exporter"
-  }
-}
-
-prometheus.exporter.unix "integrations_node_exporter" {
-  disable_collectors = ["ipvs", "btrfs", "infiniband", "xfs", "zfs"]
-
-  filesystem {
-    fs_types_exclude     = "^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|tmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$"
-    mount_points_exclude = "^/(dev|proc|run/credentials/.+|sys|var/lib/docker/.+)($|/)"
-    mount_timeout        = "5s"
-  }
-
-  netclass {
-    ignored_devices = "^(veth.*|cali.*|[a-f0-9]{15})$"
-  }
-
-  netdev {
-    device_exclude = "^(veth.*|cali.*|[a-f0-9]{15})$"
-  }
-}
-
-prometheus.scrape "integrations_node_exporter" {
-  targets    = discovery.relabel.integrations_node_exporter.output
-  forward_to = [prometheus.relabel.integrations_node_exporter.receiver]
-}
-
-prometheus.relabel "integrations_node_exporter" {
-  forward_to = [prometheus.remote_write.default.receiver]
-
-  rule {
-    source_labels = ["__name__"]
-    regex         = "node_scrape_collector_.+"
-    action        = "drop"
   }
 }
