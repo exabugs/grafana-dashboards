@@ -2,3 +2,17 @@ logging {
   level  = "info"
   format = "logfmt"
 }
+
+prometheus.exporter.self "default" {
+}
+
+prometheus.scrape "metamonitoring" {
+  targets    = prometheus.exporter.self.default.targets
+  forward_to = [prometheus.remote_write.default.receiver]
+}
+
+prometheus.remote_write "default" {
+  endpoint {
+    url = "http://localhost:9009/api/v1/push"
+  }
+}
