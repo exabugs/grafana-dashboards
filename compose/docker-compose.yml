@@ -10,19 +10,19 @@ services:
       - /opt/grafana/provisioning:/etc/grafana/provisioning
     restart: always
 
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    network_mode: host
-    ports:
-      - 9090:9090
-    volumes:
-      - /mnt/data/prometheus:/prometheus
-      - /opt/prometheus:/etc/prometheus
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.retention.time=180d"
-    restart: always
+  # prometheus:
+  #   image: prom/prometheus
+  #   container_name: prometheus
+  #   network_mode: host
+  #   ports:
+  #     - 9090:9090
+  #   volumes:
+  #     - /mnt/data/prometheus:/prometheus
+  #     - /opt/prometheus:/etc/prometheus
+  #   command:
+  #     - "--config.file=/etc/prometheus/prometheus.yml"
+  #     - "--storage.tsdb.retention.time=180d"
+  #   restart: always
 
   # https://grafana.com/docs/mimir/latest/get-started/
   mimir:
