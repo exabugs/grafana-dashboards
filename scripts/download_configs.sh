@@ -2,7 +2,7 @@
 set -e
 
 # Doctor
-curl -fsSL $SERVER_SETUP_SITE/scripts/docter.sh -o /root/docter.sh
+curl -fsSL $SERVER_SETUP_SITE/install/docter.sh -o /root/docter.sh
 chmod +x /root/docter.sh
 
 
