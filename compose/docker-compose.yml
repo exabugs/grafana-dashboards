@@ -45,22 +45,22 @@ services:
       - S3_ACCESS_KEY
       - S3_SECRET_KEY
 
-  alloy:
-    image: grafana/alloy:latest
-    container_name: alloy
-    network_mode: host
-    pid: host
-    privileged: true
-    ports:
-      - 12345:12345
-    volumes:
-      - /opt/alloy:/etc/alloy
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - run
-      - --server.http.listen-addr=0.0.0.0:12345
-      - --storage.path=/var/lib/alloy/data
-      - /etc/alloy/config.alloy
-    restart: always
+  # alloy:
+  #   image: grafana/alloy:latest
+  #   container_name: alloy
+  #   network_mode: host
+  #   pid: host
+  #   privileged: true
+  #   ports:
+  #     - 12345:12345
+  #   volumes:
+  #     - /opt/alloy:/etc/alloy
+  #     - /proc:/host/proc:ro
+  #     - /sys:/host/sys:ro
+  #     - /:/rootfs:ro
+  #   command:
+  #     - run
+  #     - --server.http.listen-addr=0.0.0.0:12345
+  #     - --storage.path=/var/lib/alloy/data
+  #     - /etc/alloy/config.alloy
+  #   restart: always
