@@ -22,7 +22,11 @@ prometheus.remote_write "default" {
   }
 }
 
-// docker compose 側に以下のマウントを追加すること
+// docker でホスト情報を収集するための設定
+// docker compose 側に以下の設定を追加すること
+// network_mode: host
+// pid: host
+// privileged: true
 // volumes:
 //   - /:/rootfs:ro
 //   - /proc:/host/proc:ro
