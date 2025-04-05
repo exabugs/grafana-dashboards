@@ -47,17 +47,8 @@ for service in "${provs[@]}"; do
 done
 
 # Services
-
-# 自分自身の更新
-script_self="$(readlink -f "$0")"
-rename_self() {
-  [ -f "$script_self.new" ] && mv "$script_self.new" "$script_self"
-}
-trap rename_self EXIT
-
 mkdir -p /opt/setup
 services=(
-  download_configs
   block_device
   letsencrypt_config
   grafana
@@ -66,7 +57,6 @@ services=(
 )
 for service in "${services[@]}"; do
   path=/opt/setup/$service.sh
-  [ "$path" = "$script_self" ] && path="$path.new"
   curl -fsSL $SERVER_SETUP_SITE/scripts/$service.sh -o $path
   chmod +x $path
 done
