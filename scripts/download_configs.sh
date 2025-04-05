@@ -16,7 +16,7 @@ curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
 
 # alloy
 mkdir -p /opt/alloy
-curl -fsSL $SERVER_SETUP_SITE/alloy/config.alloy -o /opt/alloy/config.alloy
+curl -fsSL $SERVER_SETUP_SITE/alloy/config.alloy -o /etc/alloy/config.alloy
 
 # docker compose
 mkdir -p /opt/compose
