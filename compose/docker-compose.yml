@@ -49,6 +49,8 @@ services:
     image: grafana/alloy:latest
     container_name: alloy
     network_mode: host
+    pid: host
+    privileged: true
     ports:
       - 12345:12345
     volumes:
@@ -61,3 +63,4 @@ services:
       - --server.http.listen-addr=0.0.0.0:12345
       - --storage.path=/var/lib/alloy/data
       - /etc/alloy/config.alloy
+    restart: always
