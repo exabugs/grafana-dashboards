@@ -1,3 +1,8 @@
+// ✅ Alloy 自体のメトリクス（=自己監視）	prometheus.exporter.self + prometheus.scrape
+// ✅ Mimir にメトリクス送信	prometheus.remote_write
+// ✅ Node Exporter 相当のシステムメトリクス収集	integration.node_exporter
+// ✅ Grafana ダッシュボード（ID: 1860）との互換性	そのまま使える
+
 logging {
   level  = "info"
   format = "logfmt"
@@ -15,4 +20,20 @@ prometheus.remote_write "default" {
   endpoint {
     url = "http://localhost:9009/api/v1/push"
   }
+}
+
+// docker compose 側に以下のマウントを追加すること
+// volumes:
+//   - /:/rootfs:ro
+//   - /proc:/host/proc:ro
+//   - /sys:/host/sys:ro
+integration.node_exporter "default" {
+  root         = "/rootfs"
+  procfs_path  = "/host/proc"
+  sysfs_path   = "/host/sys"
+}
+
+pipeline {
+  source      = integration.node_exporter.default
+  destination = prometheus.remote_write.default
 }

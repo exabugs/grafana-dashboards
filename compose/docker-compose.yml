@@ -53,6 +53,9 @@ services:
       - 12345:12345
     volumes:
       - /opt/alloy:/etc/alloy
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
     command:
       - run
       - --server.http.listen-addr=0.0.0.0:12345

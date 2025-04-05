@@ -1,0 +1,60 @@
+{
+    "id": null,
+    "uid": null,
+    "title": "Alloy Self Monitoring",
+    "timezone": "browser",
+    "version": 1,
+    "schemaVersion": 38,
+    "refresh": "5s",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Alloy: Self Up",
+        "id": 1,
+        "datasource": {
+          "type": "prometheus",
+          "name": "Mimir"
+        },
+        "targets": [
+          {
+            "expr": "up{job=\"integrations/self\"}",
+            "format": "time_series",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none",
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "green", "value": 1 }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "options": {
+          "reduceOptions": {
+            "calcs": ["lastNotNull"],
+            "fields": "",
+            "values": false
+          },
+          "orientation": "horizontal",
+          "textMode": "auto"
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      }
+    ]
+  }
+  
