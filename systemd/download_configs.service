@@ -7,7 +7,7 @@ Type=oneshot
 RemainAfterExit=true
 EnvironmentFile=/etc/environment
 
-ExecStart=curl -fsSL $SERVER_SETUP_SITE/scripts/download_configs.sh | bash
+ExecStart=bash -c "curl -fsSL $SERVER_SETUP_SITE/scripts/download_configs.sh | bash"
 
 [Install]
 WantedBy=multi-user.target
