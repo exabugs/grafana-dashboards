@@ -50,13 +50,12 @@ services:
     image: grafana/alloy:latest
     container_name: alloy
     network_mode: host
+    ports:
+      - 12345:12345
     volumes:
       - /opt/alloy:/etc/alloy
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
     command:
       - run
-      - --storage.path=/var/lib/alloy
-      - /etc/alloy/alloy.river
-    restart: always
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
