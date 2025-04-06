@@ -7,8 +7,8 @@ echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stab
 apt-get update
 apt-get install alloy
 
-# docker ログ を読むために root グループに追加
-usermod -aG root alloy
+# docker ログ を読むために docker グループに追加
+usermod -aG docker alloy
 
 systemctl enable alloy
 systemctl start alloy
