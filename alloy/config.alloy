@@ -2,6 +2,8 @@ logging {
   level = "info"
 }
 
+loki.echo "debug" { }
+
 //
 // Node Exporter
 //
@@ -50,8 +52,6 @@ loki.relabel "nginx_access" {
     }
     forward_to = [loki.write.nginx_access.receiver]
 }
-
-loki.echo "debug" { }
 
 loki.write "nginx_access" {
     endpoint {
