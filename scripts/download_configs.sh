@@ -18,6 +18,10 @@ curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
 mkdir -p /opt/alloy
 curl -fsSL $SERVER_SETUP_SITE/alloy/config.alloy -o /etc/alloy/config.alloy
 
+# loki
+mkdir -p /opt/loki
+curl -fsSL $SERVER_SETUP_SITE/loki/loki.yml -o /opt/loki/loki.yml
+
 # docker compose
 mkdir -p /opt/compose
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
