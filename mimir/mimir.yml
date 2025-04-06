@@ -58,5 +58,8 @@ store_gateway:
     replication_factor: 1
 
 limits:
+  # Delete from storage metrics data older than 1 year.
+  compactor_blocks_retention_period: 1y
+
   # Enable TSDB block upload
   compactor_block_upload_enabled: true
