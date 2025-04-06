@@ -57,6 +57,10 @@ store_gateway:
   sharding_ring:
     replication_factor: 1
 
+remote_write:
+  - url: http://localhost:9009/api/v1/push
+    send_native_histograms: true
+
 limits:
   # Delete from storage metrics data older than 1 year.
   compactor_blocks_retention_period: 1y
