@@ -8,7 +8,9 @@ apt-get update
 apt-get install alloy
 
 # docker ログ を読むために docker グループに追加
-usermod -aG docker alloy
+# usermod -aG docker alloy
+# gpasswd -d alloy docker
+
 
 systemctl enable alloy
 systemctl start alloy
