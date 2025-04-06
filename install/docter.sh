@@ -8,7 +8,6 @@ SERVICES=(
   nginx
   letsencrypt_config
   grafana
-  node_exporter
 )
 
 EXIT_CODE=0
