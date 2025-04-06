@@ -2,7 +2,7 @@
 Description=Attach and resize block device
 After=network.target
 
-Requires=download_configs.service
+Wants=download_configs.service
 After=download_configs.service
 
 [Service]

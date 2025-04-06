@@ -2,22 +2,22 @@
 Description=Grafana & Prometheus via Docker Compose
 
 # Docker が必要
-Requires=docker.service
+Wants=docker.service
 After=docker.service
 
 # ストレージボリュームが必要
-Requires=block_device.service
+Wants=block_device.service
 After=block_device.service
 
 # Nginx（リバースプロキシ）が必要
-Requires=nginx.service
+Wants=nginx.service
 After=nginx.service
 
 # 証明書が取得済みである必要がある
-Requires=letsencrypt_config.service
+Wants=letsencrypt_config.service
 After=letsencrypt_config.service
 
-Requires=download_configs.service
+Wants=download_configs.service
 After=download_configs.service
 
 [Service]

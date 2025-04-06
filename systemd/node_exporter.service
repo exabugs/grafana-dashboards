@@ -3,7 +3,7 @@ Description=Node Exporter
 Wants=network-online.target
 After=network-online.target
 
-Requires=download_configs.service
+Wants=download_configs.service
 After=download_configs.service
 
 [Service]
