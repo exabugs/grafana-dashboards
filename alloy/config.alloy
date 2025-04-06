@@ -2,6 +2,10 @@ logging {
   level = "info"
 }
 
+//
+// Node Exporter
+//
+
 prometheus.exporter.unix "default" {
   include_exporter_metrics = true
   disable_collectors       = ["mdadm"]
@@ -17,11 +21,6 @@ prometheus.scrape "default" {
       __address__ = "127.0.0.1:12345",
     }],
   )
-
-  // forward_to = [
-  // TODO: components to forward metrics to (like prometheus.remote_write or
-  // prometheus.relabel).
-  // ]
   forward_to = [prometheus.remote_write.default.receiver]
 }
 
@@ -31,6 +30,10 @@ prometheus.remote_write "default" {
   }
 }
 
+//
+// Nginx
+//
+
 local.file_match "nginx_access" {
     path_targets = [{"__path__" = "/var/log/nginx/access.log"}]
 }
@@ -39,29 +42,6 @@ loki.source.file "nginx_access" {
     targets    = local.file_match.nginx_access.targets
     forward_to = [loki.relabel.nginx_access.receiver]
 }
-
-// loki.process "nginx_access" {
-//     stage.json {
-//         expressions = {msec = "", connection = ""}
-//     }
-
-//     stage.labels {
-//       values = {
-//         msec = "",
-//         connection = "",
-//       }
-//     }
-//     forward_to = [loki.echo.debug.receiver,loki.write.nginx_access.receiver]
-// }
-
-
-// loki.relabel "nginx_access" {
-//     forward_to = [loki.write.nginx_access.receiver]
-//     rule {
-//         source_labels = ["__meta_docker_container_name"]
-//         target_label  = "container"
-//     }
-// }
 
 loki.relabel "nginx_access" {
     rule {
