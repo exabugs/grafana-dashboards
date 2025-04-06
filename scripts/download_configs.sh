@@ -57,7 +57,6 @@ services=(
   letsencrypt_config
   grafana
   mimir
-  node_exporter
 )
 for service in "${services[@]}"; do
   path=/opt/setup/$service.sh
