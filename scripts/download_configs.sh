@@ -43,7 +43,6 @@ done
 mkdir -p /opt/grafana/provisioning/{dashboards,datasources}
 provs=(
   dashboards/default.yml
-  dashboards/node-exporter.json
   dashboards/node-exporter-fix.json
   datasources/mimir.yml
 )
