@@ -43,7 +43,7 @@ done
 mkdir -p /opt/grafana/provisioning/{dashboards,datasources}
 provs=(
   dashboards/default.yml
-  dashboards/node-exporter-fix.json
+  dashboards/node-exporter.json
   datasources/mimir.yml
 )
 for service in "${provs[@]}"; do
