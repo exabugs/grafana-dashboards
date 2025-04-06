@@ -30,16 +30,49 @@ prometheus.remote_write "default" {
   }
 }
 
-local.file_match "tmplogs" {
-    path_targets = [{"__path__" = "/tmp/alloy-logs/*.log"}]
+local.file_match "nginx_access" {
+    path_targets = [{"__path__" = "/var/log/nginx/access.log"}]
 }
 
-loki.source.file "local_files" {
-    targets    = local.file_match.tmplogs.targets
-    forward_to = [loki.write.local_loki.receiver]
+loki.source.file "nginx_access" {
+    targets    = local.file_match.nginx_access.targets
+    forward_to = [loki.relabel.nginx_access.receiver]
 }
 
-loki.write "local_loki" {
+// loki.process "nginx_access" {
+//     stage.json {
+//         expressions = {msec = "", connection = ""}
+//     }
+
+//     stage.labels {
+//       values = {
+//         msec = "",
+//         connection = "",
+//       }
+//     }
+//     forward_to = [loki.echo.debug.receiver,loki.write.nginx_access.receiver]
+// }
+
+
+// loki.relabel "nginx_access" {
+//     forward_to = [loki.write.nginx_access.receiver]
+//     rule {
+//         source_labels = ["__meta_docker_container_name"]
+//         target_label  = "container"
+//     }
+// }
+
+loki.relabel "nginx_access" {
+    rule {
+        target_label  = "service"
+        replacement   = "nginx"
+    }
+    forward_to = [loki.echo.debug.receiver,loki.write.nginx_access.receiver]
+}
+
+loki.echo "debug" { }
+
+loki.write "nginx_access" {
     endpoint {
         url = "http://localhost:3100/loki/api/v1/push"
     }
