@@ -53,6 +53,26 @@ for SERVICE in "${SERVICES[@]}"; do
 done
 
 
+echo "Docker"
+
+CONS=(
+mimir
+grafana
+loki
+)
+for CON in "${CONS[@]}"; do
+  set +e
+  status_code=$(docker inspect $CON | jq -r .[].State.Status)
+  set -e
+
+  if [ "$status_code" = "running" ]; then
+    echo "✅ OK: $CON is reachable"
+  else
+    echo "❌ ERROR: $CON returned $status_code"
+    EXIT_CODE=1
+  fi
+done
+
 echo "URL"
 
 URLS=(
