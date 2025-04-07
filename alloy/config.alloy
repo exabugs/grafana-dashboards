@@ -66,20 +66,27 @@ prometheus.remote_write "demo" {
 // 固定のログ
 //
 
-local.file_match "nginx_access" {
-    path_targets = [{"__path__" = "/var/log/nginx/access.log"}]
-}
+// local.file_match "nginx_access" {
+//     path_targets = [{"__path__" = "/var/log/nginx/access.log"}]
+// }
+
+// loki.source.file "nginx_access" {
+//     targets    = local.file_match.nginx_access.targets
+//     forward_to = [loki.relabel.nginx_access.receiver]
+// }
+
+// loki.relabel "nginx_access" {
+//     rule {
+//         target_label  = "service"
+//         replacement   = "nginx"
+//     }
+//     forward_to = [loki.write.nginx_access.receiver]
+// }
 
 loki.source.file "nginx_access" {
-    targets    = local.file_match.nginx_access.targets
-    forward_to = [loki.relabel.nginx_access.receiver]
-}
-
-loki.relabel "nginx_access" {
-    rule {
-        target_label  = "service"
-        replacement   = "nginx"
-    }
+    targets    = [
+      {"__path__" = "/var/log/nginx/access.log", "service" = "nginx"},
+    ]
     forward_to = [loki.write.nginx_access.receiver]
 }
 
