@@ -33,7 +33,37 @@ prometheus.remote_write "default" {
 }
 
 //
-// Nginx
+// 固定のメトリクス
+//
+
+// discovery.docker でできるかと思ったけど出来なかった
+// discovery.docker "containers" {
+//   host = "unix:///var/run/docker.sock"
+// }
+
+// インラインで書けるようなので、ここはコメントアウト。relabel の機能が使いたいなら、ここをスタートにする。
+// discovery.relabel "backend" {
+//   targets = [
+//     { "__meta_foo" = "foo", "__address__" = "localhost:9009",  "app" = "mimir"  },
+//   ]
+// }
+
+prometheus.scrape "demo" {
+  scrape_interval = "15s"
+  targets    = [
+    { "__meta_foo" = "foo", "__address__" = "localhost:9009",  "app" = "mimir"  },
+  ]
+  forward_to = [prometheus.remote_write.demo.receiver]
+}
+
+prometheus.remote_write "demo" {
+  endpoint {
+    url = "http://localhost:9009/api/v1/push"
+  }
+}
+
+//
+// 固定のログ
 //
 
 local.file_match "nginx_access" {
