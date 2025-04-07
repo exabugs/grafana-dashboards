@@ -40,7 +40,7 @@ for site in "${available[@]}"; do
 done
 
 # Grafana provisioning
-mkdir -p /opt/grafana/provisioning/{dashboards,datasources}
+mkdir -p /opt/grafana/provisioning/{dashboards,datasources,alerting,plugins}
 provs=(
   dashboards/default.yml
   dashboards/node-exporter.json

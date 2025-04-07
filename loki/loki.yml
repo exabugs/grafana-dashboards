@@ -18,6 +18,10 @@ common:
     kvstore:
       store: inmemory
 
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 8760h
+
 query_range:
   results_cache:
     cache:
