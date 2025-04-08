@@ -34,7 +34,7 @@ err() {
 
 start() {
   log "Creating Grafana & Prometheus directories"
-  mkdir -p $MOUNTPOINT/{grafana,mimir,prometheus,loki}
+  mkdir -p $MOUNTPOINT/{grafana,mimir,prometheus,loki,tempo}
   chown 472:472 $MOUNTPOINT/grafana
   chown 472:472 $MOUNTPOINT/mimir
   chown nobody:nogroup $MOUNTPOINT/prometheus
