@@ -19,3 +19,12 @@ datasources:
     basicAuth: false
     version: 1
     editable: false
+
+  - name: Tempo
+    type: tempo
+    access: proxy
+    orgId: 1
+    url: http://localhost:3200
+    basicAuth: false
+    version: 1
+    editable: false
