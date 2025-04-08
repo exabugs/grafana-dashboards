@@ -32,7 +32,7 @@ storage:
       forcepathstyle: true
       enable_dual_stack: false
       # set to false if endpoint is https
-      insecure: true
+      insecure: false
       access_key: ${S3_ACCESS_KEY}
       secret_key: ${S3_SECRET_KEY}
     wal:
