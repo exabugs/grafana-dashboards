@@ -67,6 +67,6 @@ datasources:
       spanBar:
         type: "Tag"
         tag: "http.path"
-      # Test&Saveができなくなるので、コメントアウト
-      # streamingEnabled:
-      #   search: true
+      streamingEnabled:
+        search: true
+        metrics: true
