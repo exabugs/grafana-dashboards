@@ -1,0 +1,45 @@
+server:
+  http_listen_port: 3200
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:
+        grpc:
+
+compactor:
+  compaction:
+    block_retention: 48h # configure total trace retention here
+
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
+      cluster: linux-microservices
+  storage:
+    path: /mnt/data/tempo/generator/wal
+    remote_write:
+      - url: http://localhost:9090/api/v1/write
+        send_exemplars: true
+
+storage:
+  trace:
+    backend: s3
+    s3:
+      endpoint: ${S3_ENDPOINT}
+      bucket: grafana-traces-data
+      forcepathstyle: true
+      enable_dual_stack: false
+      # set to false if endpoint is https
+      insecure: true
+      access_key: ${S3_ACCESS_KEY}
+      secret_key: ${S3_SECRET_KEY}
+    wal:
+      path: /mnt/data/tempo/wal # where to store the wal locally
+    local:
+      path: /mnt/data/tempo/blocks
+overrides:
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics]

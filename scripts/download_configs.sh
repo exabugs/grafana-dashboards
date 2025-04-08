@@ -22,6 +22,10 @@ curl -fsSL $SERVER_SETUP_SITE/alloy/config.alloy -o /etc/alloy/config.alloy
 mkdir -p /opt/loki
 curl -fsSL $SERVER_SETUP_SITE/loki/loki.yml -o /opt/loki/loki.yml
 
+# loki
+mkdir -p /opt/tempo
+curl -fsSL $SERVER_SETUP_SITE/tempo/config.yml -o /opt/tempo/config.yml
+
 # docker compose
 mkdir -p /opt/compose
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
