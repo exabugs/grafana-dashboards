@@ -88,6 +88,7 @@ prometheus.scrape "demo" {
     { "__address__" = "localhost:9009",  "app" = "mimir"  },
     { "__address__" = "localhost:3100",  "app" = "loki"  },
     { "__address__" = "localhost:3000",  "app" = "grafana"  },
+    { "__address__" = "localhost:3200",  "app" = "tempo"  },
   ]
   forward_to = [prometheus.remote_write.demo.receiver]
 }
