@@ -39,6 +39,7 @@ start() {
   chown 472:472 $MOUNTPOINT/mimir
   chown nobody:nogroup $MOUNTPOINT/prometheus
   chown 10001:10001 $MOUNTPOINT/loki
+  chown 10001:10001 $MOUNTPOINT/tempo
 
   log "Linking Nginx site: $NGINX_SITE_NAME"
   ln -sf "/etc/nginx/sites-available/$NGINX_SITE_NAME" "/etc/nginx/sites-enabled/$NGINX_SITE_NAME"
