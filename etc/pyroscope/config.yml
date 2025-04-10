@@ -1,6 +1,6 @@
 server:
   http_listen_port: 4040
-  grpc_listen_port: 9196
+  grpc_listen_port: 9196  # default 9095 から変更する
 
 storage:
   backend: filesystem
