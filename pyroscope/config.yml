@@ -1,0 +1,16 @@
+server:
+  http_address: ":4040"
+
+log:
+  level: info
+  format: logfmt
+
+storage:
+  path: /var/lib/pyroscope
+  max_nodes: 2097152
+# scrape_configs:
+#   - job_name: 'my-app'
+#     pyroscope_server_address: 'http://localhost:4040'
+#     static_configs:
+#       - targets: ['localhost:8080']
+

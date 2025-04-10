@@ -35,12 +35,13 @@ err() {
 
 start() {
   log "Creating Grafana & Prometheus directories"
-  mkdir -p $MOUNTPOINT/{grafana,mimir,prometheus,loki,tempo}
+  mkdir -p $MOUNTPOINT/{grafana,mimir,prometheus,loki,tempo,pyroscope}
   chown 472:472 $MOUNTPOINT/grafana
   chown 472:472 $MOUNTPOINT/mimir
   chown nobody:nogroup $MOUNTPOINT/prometheus
   chown 10001:10001 $MOUNTPOINT/loki
   chown 10001:10001 $MOUNTPOINT/tempo
+  chown 10001:10001 $MOUNTPOINT/pyroscope
 
   log "Linking Nginx site: $GRAFANA_SITE_NAME"
   ln -sf "/etc/nginx/sites-available/$GRAFANA_SITE_NAME" "/etc/nginx/sites-enabled/$GRAFANA_SITE_NAME"

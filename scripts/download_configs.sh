@@ -26,6 +26,10 @@ curl -fsSL $SERVER_SETUP_SITE/loki/loki.yml -o /opt/loki/loki.yml
 mkdir -p /opt/tempo
 curl -fsSL $SERVER_SETUP_SITE/tempo/config.yml -o /opt/tempo/config.yml
 
+# pyroscope
+mkdir -p /opt/pyroscope
+curl -fsSL $SERVER_SETUP_SITE/pyroscope/config.yml -o /opt/pyroscope/config.yml
+
 # docker compose
 mkdir -p /opt/compose
 curl -fsSL $SERVER_SETUP_SITE/compose/docker-compose.yml -o /opt/compose/docker-compose.yml
