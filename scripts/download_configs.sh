@@ -14,9 +14,9 @@ apps=(
   tempo/config.yml
   pyroscope/config.yml
 
-  grafana/dashboards/default.yml
-  grafana/dashboards/node-exporter.json
-  grafana/datasources/mimir.yml
+  grafana/provisioning/dashboards/default.yml
+  grafana/provisioning/dashboards/node-exporter.json
+  grafana/provisioning/datasources/mimir.yml
 )
 for app in "${apps[@]}"; do
   filepath=/etc/$app
