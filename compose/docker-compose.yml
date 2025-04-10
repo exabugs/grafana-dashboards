@@ -31,7 +31,7 @@ services:
     network_mode: host
     # user: 472:472 # 非 root を試みる ( grafana に揃える ) がうまくいかないので、root のまま
     ports:
-      - 9009:9009
+      - 9009:9009 # nginx:8009
     volumes:
       - /mnt/data/mimir:/mnt/data/mimir
       - /opt/mimir:/etc/mimir
@@ -69,9 +69,8 @@ services:
     container_name: tempo
     network_mode: host
     ports:
-      - 3200:3200
-      # - "${TEMPO_PORT_OTLP_RECEIVER_GRPC}:${TEMPO_PORT_OTLP_RECEIVER_GRPC}"
-      # - "${TEMPO_PORT_OTLP_RECEIVER_HTTP}:${TEMPO_PORT_OTLP_RECEIVER_HTTP}"
+      - 3200:3200 # HTTP nginx:4318
+      - 9195:9195 # GRPC
     # labels:
     #   prometheus-scrape.enabled: "true"
     #   service: "tempo"
