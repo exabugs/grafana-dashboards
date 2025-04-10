@@ -8,7 +8,8 @@ MOUNTPOINT=/mnt/data
 WORKDIR="/opt/compose"
 
 # Nginx の設定ファイルのパス
-NGINX_SITE_NAME="grafana"
+GRAFANA_SITE_NAME="grafana"
+MIMIR_SITE_NAME="mimir"
 
 # 使用するコマンドの絶対パス（systemd 対策）
 DOCKER="/usr/bin/docker"
@@ -41,8 +42,11 @@ start() {
   chown 10001:10001 $MOUNTPOINT/loki
   chown 10001:10001 $MOUNTPOINT/tempo
 
-  log "Linking Nginx site: $NGINX_SITE_NAME"
-  ln -sf "/etc/nginx/sites-available/$NGINX_SITE_NAME" "/etc/nginx/sites-enabled/$NGINX_SITE_NAME"
+  log "Linking Nginx site: $GRAFANA_SITE_NAME"
+  ln -sf "/etc/nginx/sites-available/$GRAFANA_SITE_NAME" "/etc/nginx/sites-enabled/$GRAFANA_SITE_NAME"
+
+  log "Linking Nginx site: $MIMIR_SITE_NAME"
+  ln -sf "/etc/nginx/sites-available/$MIMIR_SITE_NAME" "/etc/nginx/sites-enabled/$MIMIR_SITE_NAME"
 
   log "Reloading Nginx"
   $NGINX -t && $NGINX -s reload
@@ -52,8 +56,11 @@ start() {
 }
 
 stop() {
-  log "Unlinking Nginx site: $NGINX_SITE_NAME"
-  rm -f "/etc/nginx/sites-enabled/$NGINX_SITE_NAME"
+  log "Unlinking Nginx site: $GRAFANA_SITE_NAME"
+  rm -f "/etc/nginx/sites-enabled/$GRAFANA_SITE_NAME"
+
+  log "Unlinking Nginx site: $MIMIR_SITE_NAME"
+  rm -f "/etc/nginx/sites-enabled/$MIMIR_SITE_NAME"
 
   log "Reloading Nginx"
   $NGINX -t && $NGINX -s reload
