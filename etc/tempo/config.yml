@@ -5,9 +5,9 @@ server:
 distributor:
   receivers:
     otlp:
-      protocols:
-        http:
-        grpc:
+      protocols: {}  # ← 全て無効にする場合
+        #http:
+        #grpc:
 
 compactor:
   compaction:
