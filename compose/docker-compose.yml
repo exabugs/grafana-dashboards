@@ -7,7 +7,7 @@ services:
       - 3000:3000
     volumes:
       - /mnt/data/grafana:/var/lib/grafana
-      - /opt/grafana/provisioning:/etc/grafana/provisioning
+      - /etc/grafana/provisioning:/etc/grafana/provisioning
     restart: always
 
   # prometheus:
@@ -34,7 +34,7 @@ services:
       - 9009:9009 # nginx:8009
     volumes:
       - /mnt/data/mimir:/mnt/data/mimir
-      - /opt/mimir:/etc/mimir
+      - /etc/mimir:/etc/mimir
     command:
       - "-target=all"
       - "-config.expand-env=true"
@@ -53,7 +53,7 @@ services:
       - 3100:3100
     volumes:
       - /mnt/data/loki:/mnt/data/loki
-      - /opt/loki:/etc/loki
+      - /etc/loki:/etc/loki
     command:
       - "-config.expand-env=true"
       - "-config.file=/etc/loki/loki.yml"
@@ -76,7 +76,7 @@ services:
     #   service: "tempo"
     volumes:
       - /mnt/data/tempo:/mnt/data/tempo
-      - /opt/tempo:/etc/tempo
+      - /etc/tempo:/etc/tempo
     command:
       - "-config.expand-env=true"
       - "-config.file=/etc/tempo/config.yml"
@@ -94,7 +94,7 @@ services:
       - 4040:4040
     volumes:
       - /mnt/data/pyroscope:/var/lib/pyroscope
-      - /opt/pyroscope:/etc/pyroscope
+      - /etc/pyroscope:/etc/pyroscope
     command:
       - "-config.expand-env=true"
       - "-config.file=/etc/pyroscope/config.yml"

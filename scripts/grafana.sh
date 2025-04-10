@@ -43,6 +43,9 @@ start() {
   chown 10001:10001 $MOUNTPOINT/tempo
   chown 10001:10001 $MOUNTPOINT/pyroscope
 
+
+  mkdir -p /etc/grafana/provisioning/{dashboards,datasources,alerting,plugins}
+
   log "Linking Nginx site: $GRAFANA_SITE_NAME"
   ln -sf "/etc/nginx/sites-available/$GRAFANA_SITE_NAME" "/etc/nginx/sites-enabled/$GRAFANA_SITE_NAME"
 

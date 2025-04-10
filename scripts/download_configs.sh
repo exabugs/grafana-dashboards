@@ -5,30 +5,24 @@ set -e
 curl -fsSL $SERVER_SETUP_SITE/install/docter.sh -o /root/docter.sh
 chmod +x /root/docter.sh
 
+# Apps
+apps=(
+  prometheus/prometheus.yml
+  mimir/mimir.yml
+  alloy/config.alloy
+  loki/loki.yml
+  tempo/config.yml
+  pyroscope/config.yml
 
-# prometheus
-mkdir -p /opt/prometheus
-curl -fsSL $SERVER_SETUP_SITE/prometheus/prometheus.yml -o /opt/prometheus/prometheus.yml
-
-# mimir
-mkdir -p /opt/mimir
-curl -fsSL $SERVER_SETUP_SITE/mimir/mimir.yml -o /opt/mimir/mimir.yml
-
-# alloy
-mkdir -p /opt/alloy
-curl -fsSL $SERVER_SETUP_SITE/alloy/config.alloy -o /etc/alloy/config.alloy
-
-# loki
-mkdir -p /opt/loki
-curl -fsSL $SERVER_SETUP_SITE/loki/loki.yml -o /opt/loki/loki.yml
-
-# loki
-mkdir -p /opt/tempo
-curl -fsSL $SERVER_SETUP_SITE/tempo/config.yml -o /opt/tempo/config.yml
-
-# pyroscope
-mkdir -p /opt/pyroscope
-curl -fsSL $SERVER_SETUP_SITE/pyroscope/config.yml -o /opt/pyroscope/config.yml
+  grafana/dashboards/default.yml
+  grafana/dashboards/node-exporter.json
+  grafana/datasources/mimir.yml
+)
+for app in "${apps[@]}"; do
+  filepath=/etc/$app
+  mkdir -p $(dirname "$filepath")
+  curl -fsSL $SERVER_SETUP_SITE$filepath -o $filepath
+done
 
 # docker compose
 mkdir -p /opt/compose
@@ -45,17 +39,6 @@ for site in "${available[@]}"; do
   path=/etc/nginx/sites-available/$site
   curl -fsSL $SERVER_SETUP_SITE/nginx/$site.conf -o $path
   sed -i "s/\${DOMAIN_NAME}/${DOMAIN_NAME}/g" $path
-done
-
-# Grafana provisioning
-mkdir -p /opt/grafana/provisioning/{dashboards,datasources,alerting,plugins}
-provs=(
-  dashboards/default.yml
-  dashboards/node-exporter.json
-  datasources/mimir.yml
-)
-for service in "${provs[@]}"; do
-  curl -fsSL $SERVER_SETUP_SITE/provisioning/$service -o /opt/grafana/provisioning/$service
 done
 
 # Services
