@@ -122,6 +122,7 @@ BUCKETS=(
 "mimir-alerts"
 "grafana-traces-data"
 "loki"
+"grafana-pyroscope-data"
 )
 for BUCKET in "${BUCKETS[@]}"; do
   set +e
