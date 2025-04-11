@@ -8,9 +8,10 @@ distributor:
   receivers:
     otlp:
       protocols:
-        {} # ← 全て無効にする場合
-        #http:
-        #grpc:
+        grpc:
+          endpoint: :5317
+        http:
+          endpoint: :5318
 
 compactor:
   compaction:

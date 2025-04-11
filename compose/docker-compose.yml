@@ -73,8 +73,9 @@ services:
     container_name: tempo
     network_mode: host
     ports:
-      - 3200:3200 # HTTP nginx:4318
-      - 9195:9195 # GRPC
+      - 3200:3200 # HTTP
+      - 5317:5317 # receivers GRPC
+      - 5318:5318 # receivers HTTP nginx:4318
     # labels:
     #   prometheus-scrape.enabled: "true"
     #   service: "tempo"
