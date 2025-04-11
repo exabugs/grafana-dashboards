@@ -1,3 +1,5 @@
+# https://grafana.com/docs/loki/latest/configure/storage/#on-premise-deployment-minio-single-store
+
 auth_enabled: false
 
 server:
@@ -11,13 +13,13 @@ common:
   path_prefix: /mnt/data/loki
   storage:
     s3:
+      bucketnames: loki
       region: ${S3_REGION}
       endpoint: ${S3_ENDPOINT}
-      bucketnames: loki
-      s3forcepathstyle: true
-      insecure: false
       access_key_id: ${S3_ACCESS_KEY}
       secret_access_key: ${S3_SECRET_KEY}
+      s3forcepathstyle: true
+      insecure: false
   replication_factor: 1
   ring:
     kvstore:
