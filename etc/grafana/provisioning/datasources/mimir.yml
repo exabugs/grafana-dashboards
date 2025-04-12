@@ -54,10 +54,15 @@ datasources:
         datasourceUid: mimir
         spanStartTimeShift: -1h
         spanEndTimeShift: 1h
-        tags: [{ key: "service.name", value: "service" }, { key: "job" }]
+        tags:
+          - key: service.name
+            value: service
+          - key: job
         queries:
           - name: "Sample query"
             query: "sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))"
+          - name: latency
+            query: sum(rate(traces_spanmetrics_latency_bucket[$__rate_interval]))
       # tracesToProfiles:
       #   datasourceUid: "grafana-pyroscope-datasource"
       #   tags: ["job", "instance", "pod", "namespace"]
