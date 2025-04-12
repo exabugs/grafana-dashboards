@@ -60,7 +60,7 @@ datasources:
           - key: job
         queries:
           - name: "Sample query"
-            query: "sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))"
+            query: sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[$__rate_interval]))
           - name: latency
             query: sum(rate(traces_spanmetrics_latency_bucket[$__rate_interval]))
       # tracesToProfiles:
