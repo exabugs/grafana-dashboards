@@ -55,7 +55,9 @@ prometheus.remote_write "default" {
 
 loki.source.file "nginx_access" {
     targets    = [
-      {"__path__" = "/var/log/nginx/access.log", "service" = "nginx"},
+      {"__path__" = "/var/log/nginx/access.log",       "service" = "nginx"},
+      {"__path__" = "/var/log/nginx/mimir_access.log", "service" = "nginx", "app" = "mimir"},
+      {"__path__" = "/var/log/nginx/tempo_access.log", "service" = "nginx", "app" = "tempo"},
     ]
     forward_to = [loki.write.nginx_access.receiver]
 }
