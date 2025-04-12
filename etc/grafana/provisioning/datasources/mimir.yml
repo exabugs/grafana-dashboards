@@ -23,10 +23,10 @@ datasources:
     editable: false
     jsonData:
       derivedFields:
-        - datasourceUid: 'tempo'
+        - datasourceUid: tempo
           matcherRegex: '"(?:trace_id|traceID|^traceparent)":"(\w+)"'
-          name: 'TraceID'
-          url: '$${__value.raw}'
+          name: "TraceID"
+          url: "$${__value.raw}"
         - datasourceUid: tempo
           matcherRegex: '"traceparent":"[\d]{2}-([\da-f]{32})-[\da-f]{16}-[\da]{2}"'
           name: TraceIDInTraceparent
@@ -77,6 +77,6 @@ datasources:
       spanBar:
         type: "Tag"
         tag: "http.path"
-      streamingEnabled:
-        search: true
-        metrics: true
+      # streamingEnabled:
+      #   search: true
+      #   metrics: true
