@@ -17,6 +17,7 @@ compactor:
   compaction:
     block_retention: 48h # configure total trace retention here
 
+# https://grafana.com/docs/tempo/latest/configuration/#metrics-generator
 metrics_generator:
   registry:
     external_labels:
@@ -27,6 +28,29 @@ metrics_generator:
     remote_write:
       - url: http://localhost:9009/api/v1/push
         send_exemplars: true
+  processor:
+    span_metrics:
+      # [histogram_buckets: <list of float> | default = 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.128, 0.256, 0.512, 1.024, 2.048, 4.096, 8.192, 16.384]
+      histogram_buckets:
+        [
+          0.002,
+          0.004,
+          0.008,
+          0.016,
+          0.032,
+          0.064,
+          0.128,
+          0.256,
+          0.512,
+          1.024,
+          2.048,
+          4.096,
+          8.192,
+          16.384,
+          32.768,
+          65.536,
+          131.072,
+        ]
 
 storage:
   trace:
